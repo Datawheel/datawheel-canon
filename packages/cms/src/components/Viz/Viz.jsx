@@ -19,6 +19,12 @@ import * as CustomVizzes from "CustomVizzes";
 const vizTypes = {Table, Graphic, HTML, ...d3plus, ...CustomVizzes};
 
 class Viz extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isFullscreen: false
+    };
+  }
 
   getChildContext() {
     const context = {...this.context};
@@ -52,6 +58,7 @@ class Viz extends Component {
       sectionTitle,
       showTitle
     } = this.props;
+    const {isFullscreen} = this.state;
 
     // Variables come from props in the CMS, and Context in the Front-end.
     const variables = this.props.variables || this.context.variables;
@@ -112,6 +119,8 @@ class Viz extends Component {
           className ? ` ${className}` : ""
         }${
           type ? ` ${namespace}-${toKebabCase(type)}-viz-container` : ""
+        }${
+          isFullscreen ? " is-fullscreen" : ""
         }`}
         ref={ comp => this.viz = comp }
       >
@@ -132,6 +141,8 @@ class Viz extends Component {
                 slug={slug }
                 title={title || sectionTitle || slug}
                 iconOnly={size && size.width < 320 ? true : false}
+                isFullscreen={isFullscreen}
+                onToggleFullscreen={() => this.setState({isFullscreen: !isFullscreen})}
               /> : ""
             }
           </div>

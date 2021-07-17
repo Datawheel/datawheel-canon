@@ -46,7 +46,6 @@ const getBackground = elem => {
 };
 
 class Options extends Component {
-
   constructor(props) {
     super(props);
 
@@ -339,7 +338,7 @@ class Options extends Component {
   render() {
     if (this.context.print) return null;
     const {backgroundColor, imageContext, imageFormat, imageProcessing, includeSlug, dialogOpen, results, focusOptions} = this.state;
-    const {data, iconOnly, slug, t, transitionDuration} = this.props;
+    const {data, iconOnly, isFullscreen, onToggleFullscreen, slug, t, transitionDuration} = this.props;
 
     // construct URL from a combination of redux & context (#537)
     const domain = this.props.location.origin;
@@ -429,6 +428,10 @@ class Options extends Component {
 
         <Button className="options-button" icon="share" key="share-button" iconOnly={iconOnly} fontSize="xxxs" iconPosition="left" id={`options-button-${slug}-share`} onClick={this.toggleDialog.bind(this, "share")}>
           {t("CMS.Options.Share")}
+        </Button>
+
+        <Button key="fs" fontSize="xxxs" icon={isFullscreen ? "minimize" : "fullscreen"} onClick={() => onToggleFullscreen()}>
+          {isFullscreen ? "minimize" : "enlarge"}
         </Button>
       </ButtonGroup>
 

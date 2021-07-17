@@ -88,4 +88,25 @@
       position: static !important;
     }
   }
+
+  &.is-fullscreen {
+    @mixin absolute-expand;
+    position: fixed !important;
+    z-index: 2;
+    background-color: var(--section-bg-odd);
+
+    & .cp-viz-header,
+    & .cp-viz-figure {
+      padding: var(--gutter-xs);
+    }
+
+    & .cp-viz-figure {
+      @mixin vertical-overflow-container;
+      height: calc(100% - var(--gutter-xl));
+      max-height: calc(100% - var(--gutter-md));
+      top: var(--gutter-lg);
+      margin-bottom: 0;
+      bottom: 0;
+    }
+  }
 }
